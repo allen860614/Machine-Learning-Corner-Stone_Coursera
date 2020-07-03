@@ -15,8 +15,6 @@ data = np.loadtxt("hw1_15_train.dat.txt")
 # initialization
 w = [0.0, 0.0, 0.0, 0.0, 0.0]   # weight vector of g0
 x = [1.0] 
-s = 0
-
 
 # set sign()
 def sign(x):
