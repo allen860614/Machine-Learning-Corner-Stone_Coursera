@@ -10,10 +10,7 @@ import random
 
 # load data set
 data = np.loadtxt("hw1_15_train.dat.txt")
-
-# initialization
-w = [0.0, 0.0, 0.0, 0.0, 0.0]   # weight vector of g0
-
+   
 # set sign()
 def sign(x):
     if x > 0:
@@ -22,12 +19,12 @@ def sign(x):
         return -1
 
 # Cyclic PLA algorithm
-def PLA(r, w, data):
-    end = 0     # check the cycle
-    count = 0   # record the number of updates
-    i = 0       # point to the current data
-    x = 5*[1.0] # make x list initialize all 1.0
-
+def PLA(r):
+    w = 5*[0.0]  # weight vector of g0
+    end = 0      # check the cycle
+    count = 0    # record the number of updates
+    i = r        # point to the current data
+    x = 5*[1.0]  # make x list initialize all 1.0
     while end < len(data)-1:
         x[1:5] = data[i][0:4]                       # replace vector x with data
         if sign(np.dot(w, x)) != data[i][-1]:       # find mistake
@@ -35,8 +32,6 @@ def PLA(r, w, data):
             w += np.multiply(y, x)                  # update w to correct mistake
             end = 0
             count = count + 1
-            #print(count)
-            i = r
         i = i+1
         end = end+1
         if i>=len(data):
@@ -45,9 +40,8 @@ def PLA(r, w, data):
 
 result = list()
 for i in range(0, 2000):
-    r = random.randint(0, 2000)
-    result.append(PLA(r, w, data))
-    print(i)
+    r = random.randint(0, len(data)-1)
+    result.append(PLA(r))
 
 print(np.mean(result))
 
